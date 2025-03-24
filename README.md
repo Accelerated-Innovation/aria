@@ -166,6 +166,3 @@ Feel free to contribute! Submit issues and pull requests to help improve ARIA.
 ---
 
 ARIA sets a solid foundation for rapidly developing intelligent reward-driven experiences. Explore the architecture, integrate your use case, and accelerate innovation!
-
-Please document the full README.md including the recent discussion of the folder structures.
-
