@@ -12,3 +12,4 @@ class OpenAIEmbedder(Embedder):
 
     def embed(self, documents: List[str]):
         return self.embeddings.embed_documents(documents)  # ✅ Exactly correct
+

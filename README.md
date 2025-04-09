@@ -3,9 +3,10 @@
 ## Overview
 
 ARIA is a modern, scalable reference architecture designed to accelerate the development of intelligent membership rewards applications and chatbots. Inspired by the a16z Emerging LLM App Stack, ARIA integrates cutting-edge GenAI technology, providing a streamlined, reliable, and extensible foundation for building smart reward systems, knowledge assistants, and interactive user experiences.
-![image](https://github.com/user-attachments/assets/ee1817a4-4d93-4b8e-8443-64d604e125ff)
-![image](https://github.com/user-attachments/assets/08a1195b-c539-4bfc-85b5-a648f206f3de)
-![image](https://github.com/user-attachments/assets/a297ab85-fbde-4c7a-bf2f-93a8fd93bb45)
+![image](/docs/images/a16z_arch.png)
+![image](/docs/images/LLM%20app%20arch.png)
+![image](/docs/images/Component%20Arch%20Diagram.png)
+![image](/docs/images/Data%20Ingestion%20and%20Embeddings.png)
 
 
 ## ARIA Stack
@@ -60,41 +61,41 @@ ARIA’s architecture includes clearly defined layers, each serving specialized 
 ### Microservices Design
 
 - Component directory structure
-  ```
-  accelerated-innovation/aria
-  ├── frontend-react/
-  │   ├── components/
-  │   ├── pages/
-  │   ├── hooks/
-  │   ├── utils/
-  │   ├── tests/
-  │   ├── Dockerfile
-  │   └── README.md                 # Frontend specific instructions
-  │
-  ├── backend-fastapi/
-  │   ├── api-gateway/
-  │   ├── rewards-query-service/
-  │   ├── agent-orchestrator-service/ # AutoGen
-  │   ├── embedding-service/
-  │   ├── data-ingestion-service/     # 🚀 Data Ingestion
-  │   ├── observability-service/      # Arize
-  │   ├── common/ (optional shared code)
-  │   └── README.md                  # Backend overview/instructions
-  │
-  ├── infrastructure/
-  │   ├── docker-compose.yml
-  │   ├── terraform/ (optional)
-  │   ├── scripts/
-  │   └── README.md                  # Infrastructure setup instructions
-  │
-  ├── scripts/                       # Shared setup/scripts across layers
-  ├── docs/                          # Centralized documentation
-  │   ├── architecture.md
-  │   ├── setup-guide.md
-  │   └── api-docs.md
-  │
-  └── README.md                      # Main project overview
-  ```
+    ```
+    accelerated-innovation/aria
+    ├── frontend-react/
+    │   ├── components/
+    │   ├── pages/
+    │   ├── hooks/
+    │   ├── utils/
+    │   ├── tests/
+    │   ├── Dockerfile
+    │   └── README.md                 # Frontend specific instructions
+    │
+    ├── backend-fastapi/
+    │   ├── api-gateway/
+    │   ├── rewards-query-service/
+    │   ├── agent-orchestrator-service/ # AutoGen
+    │   ├── embedding-service/
+    │   ├── data-ingestion-service/     # 🚀 Data Ingestion
+    │   ├── observability-service/      # Arize
+    │   ├── common/ (optional shared code)
+    │   └── README.md                  # Backend overview/instructions
+    │
+    ├── infrastructure/
+    │   ├── docker-compose.yml
+    │   ├── terraform/ (optional)
+    │   ├── scripts/
+    │   └── README.md                  # Infrastructure setup instructions
+    │
+    ├── scripts/                       # Shared setup/scripts across layers
+    ├── docs/                          # Centralized documentation
+    │   ├── architecture.md
+    │   ├── setup-guide.md
+    │   └── api-docs.md
+    │
+    └── README.md                      # Main project overview
+    ```
 
 ARIA emphasizes decoupled microservices, each independently scalable and deployable:
 

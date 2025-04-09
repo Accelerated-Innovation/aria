@@ -1,27 +1,23 @@
 # services/ingestion_service.py
 import requests
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 class IngestionService:
-    def __init__(self, loader, transformer, vector_db, embedding_service_url):
-        self.loader = loader
-        self.transformer = transformer
-        self.vector_db = vector_db
-        self.embedding_service_url = embedding_service_url
+    def __init__(self):
+        self.embedding_service_url = os.getenv("EMBEDDING_SERVICE_URL")
+        self.data_access_service_url = os.getenv("DATA_ACCESS_SERVICE_URL")
 
-    def ingest(self, file_path: str):
-        documents = self.loader.load(file_path)
-        chunks = self.transformer.transform(documents)
+    def ingest_document(self, texts: list[str]):
+        embeddings_response = requests.post(f"{self.embedding_service_url}/embed", json={"texts": texts})
+        embeddings_response.raise_for_status()
+        embeddings = embeddings_response.json()["embeddings"]
 
-        texts = [chunk.page_content for chunk in chunks]
-
-        embeddings = self._get_embeddings(texts)
-        self.vector_db.store(chunks, embeddings)
-
-    def _get_embeddings(self, texts: list[str]):
-        response = requests.post(
-            f"{self.embedding_service_url}/embed",
-            json={"texts": texts}
+        store_response = requests.post(
+            f"{self.data_access_service_url}/store_embeddings",
+            json={"texts": texts, "embeddings": embeddings}
         )
-        response.raise_for_status()  # robust error handling
-        return response.json()["embeddings"]
-
+        store_response.raise_for_status()
+        return store_response.json()
+    
