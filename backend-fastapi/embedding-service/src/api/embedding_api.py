@@ -17,11 +17,11 @@ embedder = OpenAIEmbedder()
 @router.post("/embed", response_model=EmbedResponse)
 def get_embeddings(request: EmbedRequest):
     try:
-        # ✅ Correctly extract page_content clearly
+        # ✅ Correctly extract page_content
         embeddings = embedder.embed(request.texts)
         return {"embeddings": embeddings}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
     
 @router.get("/health")
 def health_check():

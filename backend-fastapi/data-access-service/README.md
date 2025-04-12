@@ -1,42 +1,28 @@
-# 🚀 **Smoke Test Instructions: Data Access Service**
+# Datta Access Service
+## Responsibilities: Interact with external data sources and provide a unified API for data access.
+
+## 🚀 **Smoke Test Instructions: Data Access Service**
 
 Follow these steps to quickly verify the basic functionality of your Data Access Service.
 
 ---
 
-## ✅ **1. Start Dependencies (Infrastructure)**
+### ✅ **1. Start Dependencies (Infrastructure)**
 
 First, ensure your PostgreSQL PGVector database is running:
 
 ```bash
 cd infrastructure
-docker compose up -d 
+docker compose up -d --build
 ```
 
-Verify PostgreSQL PGVector is running at:
-```
-localhost:6024
-```
+**Verify:**
+- Inside Docker aria_pgvector(`localhost:6024:5432`).
+- Data Access Service is running (`localhost:8004`).
 
 ---
 
-## ✅ **2. Start Data Access Service**
-
-From the `data-access-service` directory, start the service:
-
-```bash
-cd backend-fastapi/data-access-service/scripts
-./start.sh
-```
-
-The service should now run at:
-```
-http://localhost:8004/docs
-```
-
----
-
-## ✅ **3. Verify the FastAPI Swagger UI**
+### ✅ **2. Verify the FastAPI Swagger UI**
 
 Open your browser and navigate to:
 ```
@@ -47,16 +33,9 @@ You should see the interactive Swagger documentation UI.
 
 ---
 
-## ✅ **4. Execute the Smoke Test**
+### ✅ **3. Execute the Smoke Test**
 
-### 🔹 **4.1 Test `/store_embeddings` endpoint**
-
-Use the Swagger UI to make a request to the endpoint:
-```
-POST /store_embeddings
-```
-
-#### **Payload example:**
+From Swagger UI, test your `/store_embeddings` POST endpoint with this payload:
 
 ```json
 {
@@ -67,8 +46,11 @@ POST /store_embeddings
   ]
 }
 ```
+Click "Execute".
+---
 
-You should receive a success response:
+### ✅ Step 4: Verify Response
+Successful response looks like this:
 
 ```json
 {
@@ -76,7 +58,6 @@ You should receive a success response:
   "result": [ /* IDs of stored embeddings or similar */ ]
 }
 ```
-
 ---
 
 ### 🔹 **4.2 Test `/similarity_search_vector` endpoint**
@@ -116,7 +97,7 @@ You should see a response containing relevant documents based on similarity sear
 
 ## ✅ **5. Verify Terminal Logs (recommended)**
 
-Check your terminal running `data-access-service` to verify logs appear correctly:
+Check `docker logs data-access-service` to verify logs appear correctly:
 
 ```
 INFO: POST /store_embeddings
@@ -148,7 +129,6 @@ You should see the total number of embeddings reflected.
 | Step                      | Action                                   | Expectation                        |
 |---------------------------|------------------------------------------|------------------------------------|
 | Infrastructure            | `docker-compose up -d `                  | PostgreSQL PGVector running        |
-| Start Data Access Service | `./start.sh`                             | Service running on port `8004`     |
 | FastAPI UI                | `localhost:8004/docs`                    | Swagger UI visible                 |
 | Store Embeddings          | POST `/store_embeddings`                 | Success response                   |
 | Similarity Search         | POST `/similarity_search_vector`         | Relevant search results            |
@@ -156,22 +136,3 @@ You should see the total number of embeddings reflected.
 
 ---
 
-Execute these smoke test steps now, and you'll quickly confirm your Data Access Service is functioning as expected.
-
-
-## Rebuild your Docker image after changes:
-```bash
-docker stop data-access-service
-docker rm data-access-service
-docker build -t data-access-service:latest .
-```
-
-Then run it again with the following command:
-```bash
-docker run -d -p 8004:8000 --name data-access-service data-access-service:latest
-```
-
-View the logs with:
-```bash
-docker logs -f data-access-service
-```

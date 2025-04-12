@@ -1,60 +1,36 @@
 # Data Ingestion Service
-## Responsibilities: Load, Transform)
-
-```
-backend-fastapi/data-ingestion-service/
-├── src/
-│   ├── loaders/
-│   ├── transformers/
-│   ├── database/
-│   ├── services/
-│   └── main.py
-
-```
+## Responsibilities: Load, Transform
 
 * Loaders: Loads various file formats (Docx, PDF, etc.).
 * Transformers: Splits documents, OCR extraction, data cleaning.
 * Database: Stores/retrieves embeddings in PGVector.
 
-## 🎯 How to Smoke Test Your data-ingestion-service:
+## 🎯 **Smoke Test Instructions: Data Ingestion Service**
 ### ✅ Step 1: Start Dependencies (Infrastructure)
 Make sure your PostgreSQL (PGVector) container and embedding-service are running first:
 
 ```bash
 cd infrastructure
-docker-compose up -d postgres_pgvector embedding-service
+docker-compose up -d --build
 ```
-Ensure services are up:
-* PGVector: localhost:5432
-* Embedding-service: localhost:8001/docs (Swagger API)
+**Verify:**
+- Inside Docker aria_pgvector(`localhost:6024:5432`).
+- Embedding Service is running (`localhost:8001`).
+- Data Ingestion Service is running (`localhost:8002`).
+- Data Access Service is running (`localhost:8004`).
 ---
-### ✅ Step 2: Run Your data-ingestion-service
-Either manually (via start.sh) or Docker Compose:
+### ✅ **2. Verify the FastAPI Swagger UI**
 
-**Option A: Local development (manual)**
-```bash
-cd backend-fastapi/data-ingestion-service/scripts
-./start.sh
+Open in your browser:
+```
+http://localhost:8002/docs
 ```
 
-**Option B: Docker Compose**
-From infrastructure folder:
-
-```bash
-docker-compose up -d data-ingestion-service
-```
-Your service should now run on:
-
-* localhost:8000/docs (FastAPI interactive docs)
+- You must see the FastAPI Swagger documentation UI.
 ---
 
-### ✅ Step 3: Smoke Test via FastAPI Interactive Docs
-1. Open your FastAPI Swagger UI:
-http://localhost:8000/docs
-
-2. Execute a basic API call (POST /ingest/docx):
-
-For example, if you have a simple Word document (test_doc.docx) located in your service directory, send a request like:
+### ✅ **3. Execute the Smoke Test**
+From Swagger UI, test your `/ingest/docx` POST endpoint with this payload:
 
 ```json
 {
@@ -63,7 +39,9 @@ For example, if you have a simple Word document (test_doc.docx) located in your 
 ```
 * You can put this test document temporarily at your microservice root (same level as src).
 
-3. Verify successful response:
+---
+### ✅ Step 4: Verify Response
+Successful response looks like this:
 
 ```json
 {
@@ -71,7 +49,8 @@ For example, if you have a simple Word document (test_doc.docx) located in your 
   "message": "Document ingested successfully."
 }
 ```
-### ✅ Step 4: Quick DB Check (Optional but recommended)
+---
+### ✅ Step 5: Quick DB Check (Optional but recommended)
 Verify embeddings were stored correctly by querying PostgreSQL quickly:
 
 * Connect to your PostgreSQL container:
