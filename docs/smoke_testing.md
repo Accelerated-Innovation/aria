@@ -24,3 +24,8 @@ Then exit:
 ```sql
 \q
 ```
+
+## ✅ [Smoke test the Embedding Service](..\backend-fastapi\embedding-service\README.md)
+## ✅ [Smoke test the Data Access Service](..\backend-fastapi\data-access-service\README.md)
+## ✅ [Smoke test the Data Ingestion Service](..\backend-fastapi\data-ingestion-service\README.md)
+## ✅ [Smoke test the Rewards Query Service](..\backend-fastapi\rewards-query-service\README.md)
