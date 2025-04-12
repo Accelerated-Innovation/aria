@@ -1,15 +1,10 @@
 docx2txt
 fastapi
 uvicorn
-openai
 langchain
 langchain_community
-langchain_postgres
-langchain-experimental
-langchain-openai
 pydantic
 pytest
 python-dotenv
-psycopg[binary]
 numpy
 pandas

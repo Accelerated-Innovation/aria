@@ -32,12 +32,28 @@ services:
       - postgres_pgvector
     networks:
       - aria_network
+
+  data-ingestion-service:
+    build: ../backend-fastapi/data-ingestion-service
+    container_name: data-ingestion-service
+    ports:
+      - "8002:8000"
+    networks:
+      - aria_network
   
   embedding-service:
     build: ../backend-fastapi/embedding-service
     container_name: embedding-service
     ports:
       - "8001:8000"
+    networks:
+      - aria_network
+
+  rewards-query-service:
+    build: ../backend-fastapi/rewards-query-service
+    container_name: rewards-query-service
+    ports:
+      - "8003:8000"
     networks:
       - aria_network
 
