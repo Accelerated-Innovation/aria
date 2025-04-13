@@ -37,7 +37,7 @@ async def ingest_docx(request_body: IngestRequest, ingestion_service: IngestionS
     logger.info("Received ingestion request for file: %s", request_body.file_path)
 
     try:
-        # Explicitly call ingestion service to handle document ingestion
+        # Call ingestion service to handle document ingestion
         result = ingestion_service.ingest_document(request_body.file_path)
         logger.info("Successfully ingested document: %s", request_body.file_path)
         return {"status": "success", "message": "Document ingested successfully.", "details": result}

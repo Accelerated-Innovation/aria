@@ -16,10 +16,10 @@ class VectorQueryRequest(BaseModel):
 @router.post("/store_embeddings")
 def store_embeddings(request: StoreEmbeddingsRequest):
     try:
-        result = service.insert_embeddings(request.embeddings, request.texts)
+        result = service.insert_embeddings(request.texts, request.embeddings)
         return {"status": "success", "result": result}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 @router.post("/similarity_search_vector")
 def similarity_search_vector(request: VectorQueryRequest):
@@ -27,4 +27,4 @@ def similarity_search_vector(request: VectorQueryRequest):
         results = service.query_by_vector(request.embedding, request.top_k)
         return {"results": [{"content": doc.page_content, "metadata": doc.metadata} for doc in results]}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e

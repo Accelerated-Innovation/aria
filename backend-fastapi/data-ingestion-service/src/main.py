@@ -8,7 +8,7 @@ from src.services.ingestion_service import IngestionService
 from src.loaders.docx_loader import DocxLoader
 from src.transformers.text_transformer import RecursiveTextSplitterTransformer
 
-# Configure logging explicitly
+# Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -16,11 +16,11 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Load environment variables explicitly
+# Load environment variables
 load_dotenv()
 logger.info("Environment variables loaded")
 
-# Fetch required environment variables
+# Check required environment variables explicitly
 EMBEDDING_SERVICE_URL = os.getenv("EMBEDDING_SERVICE_URL")
 DATA_ACCESS_SERVICE_URL = os.getenv("DATA_ACCESS_SERVICE_URL")
 
@@ -32,19 +32,7 @@ if not DATA_ACCESS_SERVICE_URL:
     logger.error("DATA_ACCESS_SERVICE_URL is not set!")
     raise ValueError("DATA_ACCESS_SERVICE_URL environment variable required.")
 
-# Explicitly instantiate ingestion service dependencies
-loader = DocxLoader()
-transformer = RecursiveTextSplitterTransformer()
-
-# Instantiate ingestion service explicitly
-ingestion_service = IngestionService(
-    loader=loader,
-    transformer=transformer,
-    embedding_service_url=EMBEDDING_SERVICE_URL,
-    data_access_service_url=DATA_ACCESS_SERVICE_URL
-)
-
-# Initialize FastAPI app explicitly
+# FastAPI app initialization
 app = FastAPI(
     title="Data Ingestion Service",
     description="Service for ingesting documents and delegating embedding/storage",
@@ -55,10 +43,24 @@ app = FastAPI(
     ],
 )
 
-# Attach ingestion_service instance to app.state (optional, best-practice)
-app.state.ingestion_service = ingestion_service
+# Initialize dependencies
+logger.info("Initializing dependencies...")
+loader = DocxLoader()
+transformer = RecursiveTextSplitterTransformer()
 
-# Include ingestion router explicitly
+# Create the ingestion service instance and store in app state
+ingestion_service = IngestionService(
+    loader=loader,
+    transformer=transformer,
+    embedding_service_url=EMBEDDING_SERVICE_URL,
+    data_access_service_url=DATA_ACCESS_SERVICE_URL
+)
+
+# Store the service in app state for dependency injection
+app.state.ingestion_service = ingestion_service
+logger.info("Ingestion service initialized and stored in app state")
+
+# Include ingestion router
 app.include_router(ingestion_router)
 
 @app.get("/", tags=["Health"])

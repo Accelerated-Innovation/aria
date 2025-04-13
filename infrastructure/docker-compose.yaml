@@ -40,6 +40,10 @@ services:
       - "8002:8000"
     networks:
       - aria_network
+    depends_on:
+      - postgres_pgvector
+      - embedding-service
+      - data-access-service
   
   embedding-service:
     build: ../backend-fastapi/embedding-service
