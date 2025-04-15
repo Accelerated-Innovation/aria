@@ -1,169 +1,106 @@
-# ARIA: Accelerated Rewards Intelligent Assistant
+# ARIA: Accelerated Rewards Intelligent Assistant 🚀  
+**An Open Reference Architecture + GenAI Developer Learning Journey**
 
-## Overview
+Welcome to **ARIA**, a modern, microservices-based architecture built for developers and teams creating **GenAI-powered assistants**, **RAG pipelines**, and **real-world LLM apps**.
 
-ARIA is a modern, scalable reference architecture designed to accelerate the development of intelligent membership rewards applications and chatbots. Inspired by the a16z Emerging LLM App Stack, ARIA integrates cutting-edge GenAI technology, providing a streamlined, reliable, and extensible foundation for building smart reward systems, knowledge assistants, and interactive user experiences.
-![image](/docs/images/a16z_arch.png)
-![image](/docs/images/LLM%20app%20arch.png)
-![image](/docs/images/Component%20Arch%20Diagram.png)
-![image](/docs/images/Data%20Ingestion%20and%20Embeddings.png)
-
-
-## ARIA Stack
-
-ARIA’s architecture includes clearly defined layers, each serving specialized purposes:
-
-### Frontend Layer
-
-- **Tech:** React, TailwindCSS
-- **Responsibility:** Intuitive user interface and interactions.
-- **Structure:**
-  ```
-  
-  frontend-react/
-  ├── components/
-  ├── pages/
-  ├── hooks/
-  ├── utils/
-  ├── tests/
-  ├── Dockerfile
-  └── package.json
-  ```
-
-### Middleware & API Gateway
-
-- **Tech:** FastAPI, JWT Authentication
-- **Responsibility:** API routing, validation, authentication.
-
-### Application Logic Layer
-
-- **agent-orchestrator-service**:
-  - Orchestrates multi-agent workflows (AutoGen, FastAPI).
-- **rewards-query-service**:
-  - Manages Retrieval-Augmented Generation (RAG), retrieval, reranking (LangChain, FastAPI).
-
-### Infrastructure Layer
-
-- **embedding-service**:
-  - Generates embeddings (SentenceTransformers, FastAPI).
-- **vector-db-service**:
-  - Stores embeddings (PostgreSQL with pgvector).
-- **data-ingestion-service**:
-  - Processes and transforms data into embeddings (FastAPI, PostgreSQL).
-
-### Observability Layer
-
-- **observability-service**:
-  - Monitors embedding drift, app performance, and metrics (Arize, FastAPI).
-
-## Architectural Highlights
-
-### Microservices Design
-
-- Component directory structure
-    ```
-    accelerated-innovation/aria
-    ├── frontend-react/
-    │   ├── components/
-    │   ├── pages/
-    │   ├── hooks/
-    │   ├── utils/
-    │   ├── tests/
-    │   ├── Dockerfile
-    │   └── README.md                 # Frontend specific instructions
-    │
-    ├── backend-fastapi/
-    │   ├── api-gateway/
-    │   ├── rewards-query-service/
-    │   ├── agent-orchestrator-service/ # AutoGen
-    │   ├── embedding-service/
-    │   ├── data-ingestion-service/     # 🚀 Data Ingestion
-    │   ├── observability-service/      # Arize
-    │   ├── common/ (optional shared code)
-    │   └── README.md                  # Backend overview/instructions
-    │
-    ├── infrastructure/
-    │   ├── docker-compose.yml
-    │   ├── terraform/ (optional)
-    │   ├── scripts/
-    │   └── README.md                  # Infrastructure setup instructions
-    │
-    ├── scripts/                       # Shared setup/scripts across layers
-    ├── docs/                          # Centralized documentation
-    │   ├── architecture.md
-    │   ├── setup-guide.md
-    │   └── api-docs.md
-    │
-    └── README.md                      # Main project overview
-    ```
-
-ARIA emphasizes decoupled microservices, each independently scalable and deployable:
-
-- Consistent directory structure:
-  ```
-
-  microservice-name/
-  ├── src/
-  │   ├── api/          # FastAPI endpoints
-  │   ├── core/         # Core logic, orchestration
-  │   ├── models/       # Data models and schemas
-  │   ├── services/     # Business logic
-  │   └── main.py       # FastAPI app entry
-  ├── tests/
-  ├── Dockerfile
-  ├── requirements.txt
-  ├── scripts/
-  └── README.md
-  ```
-
-### Data Processing & Embeddings
-
-Efficiently manage data ingestion, transformation, embedding generation, and storage using PostgreSQL's pgvector and SentenceTransformers:
-
-  ```
-  data-ingestion-service/
-  ├── src/
-  │   ├── loaders/          # Data loaders (CSV, JSON, APIs)
-  │   ├── transformers/     # Data transformations
-  │   ├── embedder/         # Embedding logic
-  │   ├── database/         # pgvector integration
-  │   └── main.py
-  ├── tests/
-  └── Dockerfile
-  ```
-
-## Infrastructure Automation
-
-Utilize Docker Compose and Terraform for streamlined deployments:
-
-  ```
-  infrastructure/
-  ├── docker-compose.yml
-  ├── terraform/ (optional)
-  └── scripts/
-  ```
-
-## Documentation
-
-Comprehensive documentation is available under:
-
-  ```
-  docs/
-  ├── architecture.md
-  ├── setup-guide.md
-  └── api-docs.md
-  ```
-
-## Getting Started
-
-- Clone the repository
-- Navigate through the respective folders to build, test, and deploy services
-- See detailed setup instructions in [setup-guide.md](docs/setup-guide.md).
-
-## Contribution
-
-Feel free to contribute! Submit issues and pull requests to help improve ARIA.
+But ARIA is more than just a repo—it's the foundation for an entire **developer learning path**, built through the partnership of [Marty Bradley](https://www.linkedin.com/in/martybradley), GenAI engineer, educator, and [Accelerated Innovation](https://www.acceleratedinnovation.com).
 
 ---
 
-ARIA sets a solid foundation for rapidly developing intelligent reward-driven experiences. Explore the architecture, integrate your use case, and accelerate innovation!
+## Learn by Building: A GenAI Developer Journey
+
+Each part of ARIA connects directly to a **hands-on course** in Accelerated Innovation's curriculum. Whether you're upskilling your team or leveling up your own career, you’ll walk away with deployable skills and architecture that scales.
+
+| 📚 Course | 🌐 Key ARIA Component |
+|----------|------------------------|
+| **1. Building a GenAI Q&A Knowledge Assistant** | `rewards-query-service/`, LangChain RAG |
+| **2. Building a Multi-Modal RAG Solution** | `data-ingestion-service/` + `embedding-service/` (text, CSV, JSON, APIs) |
+| **3. Evaluating & Debugging RAG Applications** | `observability-service/`, LangSmith, Arize integration |
+| **4. Advanced Semantic Search & Vector DBs** | `vector-db-service/` with pgvector, PostgreSQL |
+| **5. Secure & Responsible AI for Developers** | `api-gateway/` (JWT Auth), observability & ethical guardrails |
+| **6. GenAI Architecture for Developers** | All layers — backend, orchestration, data, frontend |
+| **7. Graph DB Best Practices** | Optional integrations (e.g. Neo4j) |
+| **8. Advanced RAG Solutions & Methods** | Reranking, multi-vector storage, LangChain CustomRetrievers |
+| **9. Leveraging Tools and Agents with MCP & A2A** | `agent-orchestrator-service/` with AutoGen |
+| **10. Llama Index for Advanced Search** | Plug-in option: swap LangChain with LlamaIndex |
+| **11. Building Cost-Effective GenAI Solutions** | Lightweight services, dockerized deploys, infra guidance |
+
+> 💡 Want live training or team workshops? Check out [acceleratedinnovation.com](https://www.acceleratedinnovation.com) or message me on [LinkedIn](https://www.linkedin.com/in/martybradley).
+
+---
+
+## The ARIA Stack
+
+![image](/docs/images/LLM%20app%20arch.png)
+
+### Frontend
+- **Tech:** React + TailwindCSS  
+- **Role:** Seamless UX for end users and agents
+
+### Middleware & Gateway
+- FastAPI + JWT Auth  
+- API gateway for validation, auth, and orchestration
+
+### Core Logic Layer
+- `agent-orchestrator-service`: multi-agent workflows (AutoGen)
+- `rewards-query-service`: RAG + reranking (LangChain or LlamaIndex)
+
+### Data Layer
+- `embedding-service`: SentenceTransformers
+- `vector-db-service`: PostgreSQL + pgvector
+- `data-ingestion-service`: pipelines from JSON, CSV, APIs
+
+### Observability
+- `observability-service`: Arize-powered insights on drift, latency, usage
+
+### Infra
+- Docker Compose first, Terraform-ready  
+- GitHub Workflows for CI/CD
+
+---
+
+## Try It Yourself
+
+```bash
+git clone https://github.com/YOUR-HANDLE/aria
+cd aria
+# then follow setup instructions in docs/setup-guide.md
+```
+
+Includes:
+- Dockerized services
+- Modular folders
+- Prebuilt data ingestion flows
+- Embedded documentation
+
+---
+
+## About Accelerated Innovation
+
+We help **developers and enterprise teams master GenAI** through architecture, hands-on projects, and live coaching.
+
+- ✅ Courses from beginner to advanced
+- 🧠 Role-based training for devs, data teams, and product leaders
+- 🌱 Built on real-world patterns (like ARIA) and production lessons
+
+[Learn more & explore offerings](https://www.acceleratedinnovation.com)
+
+---
+
+## Contribute or Learn More
+
+You can:
+- Fork the repo
+- Use it as a template for your own AI app
+- Join the learning journey
+- Reach out to collaborate
+
+Drop a ⭐ if you’re into this work—and let’s build the intelligent future together.
+
+## 📘 Continue Learning
+
+Explore how ARIA connects to hands-on GenAI training with Evergreen AI:
+
+- [🔗 ARIA Learning Journey](docs/learning-journey.md)
+- [🔗 Accelerated Course Links](docs/course-links.md)
+
