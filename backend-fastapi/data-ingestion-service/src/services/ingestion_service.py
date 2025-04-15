@@ -20,10 +20,10 @@ class IngestionService:
         
         # Use environment variables with proper container names if URLs not provided
         self.embedding_service_url = embedding_service_url or os.getenv(
-            "EMBEDDING_SERVICE_URL", "http://embedding-service:8000"
+            "EMBEDDING_SERVICE_URL"
         )
         self.data_access_service_url = data_access_service_url or os.getenv(
-            "DATA_ACCESS_SERVICE_URL", "http://data-access-service:8000"
+            "DATA_ACCESS_SERVICE_URL"
         )
         
         logger.info("Initialized with embedding service URL: %s", self.embedding_service_url)

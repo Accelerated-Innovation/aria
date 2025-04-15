@@ -104,3 +104,6 @@ Explore how ARIA connects to hands-on GenAI training with Evergreen AI:
 - [🔗 ARIA Learning Journey](docs/learning-journey.md)
 - [🔗 Accelerated Course Links](docs/course-links.md)
 
+## 📜 License
+
+Licensed under the [Apache 2.0 License](LICENSE) by Accelerated Innovation.
