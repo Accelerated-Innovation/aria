@@ -12,7 +12,7 @@ services:
       - aria_network
     volumes:
       - pgvector_data:/var/lib/postgresql/data
-      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./scripts/update_vector_dimensions.sql:/docker-entrypoint-initdb.d/update_vector_dimensions.sql
       - ./scripts/pg-config/pg_hba.conf:/etc/postgresql/pg_hba.conf
       - ./scripts/pg-config/postgresql.conf:/etc/postgresql/postgresql.conf
     command: >
@@ -28,10 +28,24 @@ services:
     container_name: data-access-service
     ports:
       - "8004:8000"
+    environment:
+      - POSTGRES_USER=aria_user
+      - POSTGRES_PASSWORD=aria_password
+      - POSTGRES_DB=aria_db
+      - POSTGRES_HOST=postgres_pgvector
+      - POSTGRES_PORT=5432
     depends_on:
-      - postgres_pgvector
+      postgres_pgvector:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
     networks:
       - aria_network
+    restart: on-failure
 
   data-ingestion-service:
     build: ../backend-fastapi/data-ingestion-service
@@ -41,9 +55,11 @@ services:
     networks:
       - aria_network
     depends_on:
-      - postgres_pgvector
-      - embedding-service
-      - data-access-service
+      embedding-service:
+        condition: service_healthy
+      data-access-service:
+        condition: service_healthy
+    restart: on-failure
   
   embedding-service:
     build: ../backend-fastapi/embedding-service
@@ -52,6 +68,13 @@ services:
       - "8001:8000"
     networks:
       - aria_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+    restart: on-failure
 
   rewards-query-service:
     build: ../backend-fastapi/rewards-query-service
@@ -60,6 +83,12 @@ services:
       - "8003:8000"
     networks:
       - aria_network
+    depends_on:
+      embedding-service:
+        condition: service_healthy
+      data-access-service:
+        condition: service_healthy
+    restart: on-failure
 
 volumes:
   pgvector_data:

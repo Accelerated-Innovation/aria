@@ -1,2 +1,0 @@
-CREATE EXTENSION IF NOT EXISTS vector;
-ALTER ROLE aria_user WITH PASSWORD 'aria_password';

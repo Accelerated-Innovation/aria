@@ -101,3 +101,10 @@ INFO: POST /query_rewards
 | Terminal Check            | Verify service logs                                       | Logs appear clearly          |
 
 ---
+
+NOTE MAY NEED THIS:
+```sql
+SELECT * FROM aria_pg_embedding 
+ORDER BY embedding::halfvec(3072) <=> $1::halfvec(3072)
+LIMIT 10;
+```

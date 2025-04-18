@@ -6,3 +6,7 @@ class Embedder(ABC):
     @abstractmethod
     def embed(self, documents: List[str]):
         pass
+
+    @abstractmethod
+    def embed_query(self, text: str):
+        pass

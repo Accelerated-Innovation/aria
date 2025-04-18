@@ -7,7 +7,7 @@ NOTE:  We suggest using the Docker installation method for PostgreSQL and pgVect
 1. Run the following command to start the container PostgreSQL image from Docker Hub:
 
 ```bash
-docker compose up -d 
+docker compose up -d --build
 ```
 
 2. Use this Docker command to connect to the PostgreSQL database:
@@ -16,10 +16,18 @@ docker exec -it aria_pgvector psql -U aria_user -d aria_db
 ```
 
 ## ✅ Summarized Commands (Clearly Restated Again):
+```bash
 Task	Command
 Enter Docker PostgreSQL Container	docker exec -it aria_pgvector psql -U aria_user -d aria_db
 List all tables	\dt
 Check installed extensions	\dx
 Describe specific table	\d aria_embeddings
 Exit	\q
+```
+
+```bash
+docker-compose down
+docker volume rm pgvector_data  # Only if you want to reset the database
+docker-compose up -d --build
+```
 

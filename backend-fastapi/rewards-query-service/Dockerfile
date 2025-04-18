@@ -1,6 +1,8 @@
 # Start with official Python 3.12 slim image
 FROM python:3.12-slim
 
+RUN apt-get update && apt-get install -y curl && apt-get clean
+
 # Set working directory in the container
 WORKDIR /app
 
