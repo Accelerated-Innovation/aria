@@ -23,7 +23,7 @@ class QueryRequest(BaseModel):
     class Config:
         json_schema_extra = {
             "example": {
-                "query": "travel discounts in Europe",
+                "query": "How many countries is Acme Bank in?",
                 "top_k": 5
             }
         }
