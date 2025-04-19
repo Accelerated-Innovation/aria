@@ -36,7 +36,7 @@ const ChatBot = () => {
 
     try {
       // Call to your FastAPI backend
-      const response = await fetch('http://localhost:8000/api/chat', {
+      const response = await fetch('http://localhost:8005/ask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

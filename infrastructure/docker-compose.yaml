@@ -90,6 +90,29 @@ services:
         condition: service_healthy
     restart: on-failure
 
+  knowledge-assistant-service:
+    build: ../backend-fastapi/knowledge-assistant-service
+    container_name: knowledge-assistant-service
+    ports:
+     - "8005:8000"
+    networks:
+      - aria_network
+    environment:
+      REWARDS_QUERY_SERVICE_URL: http://rewards-query-service:8000
+      CHAT_MODEL: gpt-4
+    depends_on:
+      embedding-service:
+        condition: service_healthy
+      rewards-query-service:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: on-failure 
+
 volumes:
   pgvector_data:
 
